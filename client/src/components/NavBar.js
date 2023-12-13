@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Form, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
 const MyNavbar = ({ loggedInUser }) => {
   return (
@@ -10,9 +11,9 @@ const MyNavbar = ({ loggedInUser }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action1">Action 1</NavDropdown.Item>
-              <NavDropdown.Item href="#action2">Action 2</NavDropdown.Item>
-              <NavDropdown.Item href="#action3">About</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/about">About</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           {loggedInUser ? (
