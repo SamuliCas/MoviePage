@@ -6,7 +6,7 @@ export default function About() {
             <Form>
                 <Form.Label>About</Form.Label>
             </Form>
-            <p>This is the About page content. Add more content here.</p>
+            <p>This is the About page.</p>
         </Container>
     );
   }

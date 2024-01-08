@@ -1,11 +1,13 @@
 // App.js
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MyNavbar from './components/NavBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import About from './pages/About';
+import Movies from './pages/Movies';
 
 function App() {
   // State and useEffect for fetching data...
@@ -82,16 +84,17 @@ function App() {
           element={<Register handleRegister={handleRegister} />}
         />
         <Route path="/about" element={<About />} />
+        <Route path="/Movies" element={<Movies />} />
       </Routes>
 
       {/* Just a simple way to display backend data */}
-      {backendData.length === 0 ? (
+      {/* {backendData.length === 0 ? (
         <p>Loading...</p>
       ) : (
         backendData.map((user, i) => (
           <p key={i}>{user.username}</p>
         ))
-      )}
+      )} */}
     </Router>
   );
 }
