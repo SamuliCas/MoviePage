@@ -6,6 +6,8 @@ const app = express()
 app.use(cors())
 app.use(express.json()); 
 
+const jwt = require('jsonwebtoken');
+
 // Create a MySQL database connection
 const db = mysql.createConnection({
     host: "localhost",
@@ -61,8 +63,8 @@ app.post('/addUser', (req, res) => {
       }
   
       if (result.length > 0) {
-        // Login successful
-        res.json({ success: true });
+        const token = jwt.sign({ username }, 'your-secret-key', { expiresIn: '1h' });
+        res.json({ token });
       } else {
         // Login failed
         res.status(401).json({ error: "Invalid username or password." });

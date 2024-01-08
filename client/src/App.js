@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import About from './pages/About';
 import Movies from './pages/Movies';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
   // State and useEffect for fetching data...
@@ -15,6 +16,18 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
+    // Check if a token exists in local storage
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      try {
+        const decodedToken = jwtDecode(storedToken);
+        const username = decodedToken.username; // Adjust this based on your token structure
+        setLoggedInUser(username);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  
     fetch("/users")
       .then(response => response.json())
       .then(data => {
@@ -34,10 +47,11 @@ function App() {
       },
       body: JSON.stringify({ username: loginUsername, password: loginPassword }),
     })
-      .then(response => {
-        if (response.ok) {
-          // Login successful
-          console.log("Login successful");
+      .then(response => response.json())
+      .then(data => {
+        if (data.token) {
+          // Save the token to local storage
+          localStorage.setItem('token', data.token);
           setLoggedInUser(loginUsername);
           // Add logic to redirect or handle successful login
         } else {
